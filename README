@@ -1,17 +1,6 @@
 Sensapp-Acceptance v0.1 
 (C) 2014 - SINTEF ICT
 
-
-CONTACT:
---------
-
-  Franck CHAUVEL
-  franck.chauvel@sintef.no
-
-
-DESCRIPTION:
-------------
-
 SensApp acceptance wraps a serie of JUnit4 tests that verifies that a
 given deployment of SensApp is operational.
 
@@ -20,8 +9,37 @@ instance through the network, and potentially through the browser. A
 complete run of the test suite may take several minutes.
 
 
-USAGE:
-------
+1. CONTACT
+----------
+
+Please report any bugs or desired feature at:
+
+   https://github.com/SINTEF-9012/sensapp-acceptance/issues
+
+
+Should you need any additional information, please contact:
+
+    Franck CHAUVEL 
+    Research Scientist - SINTEF ICT
+    franck.chauvel@sintef.no
+
+
+2. HOW TO DOWNLOAD
+------------------
+
+Stable releases are available on the Github page of the project:
+
+    https://github.com/SINTEF-9012/sensapp-acceptance/releases
+
+
+In addition, a binary distribution, continuously updated, is available at:
+
+    http://dist.thingml.org/sensapp/sensapp-acceptance.jar
+
+
+
+3. HOW TO USE SENSAPP-ACCEPTANCE
+--------------------------------
 
 SensApp-Acceptance run a series of tests against a deployment of
 sensapp, described in a property file. 
@@ -32,6 +50,57 @@ $> java -jar sensapp-acceptance.jar sensapp.properties
 In the above example, the given property file 'sensapp.properties'
 contains:
 
- 
-DEVELOPMENT:
-------------
+    admin: http://demo.sensapp.org/admin
+    notifier: http://demo.sensapp.org/notifier
+    registry: http://demo.sensapp.org/registry
+    storage: http://demo.sensapp.org/storage
+    dispatcher: http://demo.sensapp.org/dispatcher 
+
+where you would have placed the URL of the endpoints of the SensApp instance you
+want to test.
+
+4. HOW TO DEVELOP SENSAPP-ACCEPTANCE
+----------------------------------
+
+ 4.1 How to build?
+
+    $> mvn clean package
+
+
+ 4.2 How to release?
+
+    Before to create a release, one should ensure the following:
+
+     - Read/write access to the git repository 
+
+     - Valid credentials to connect on the "deployment" server are
+       configured in .m2/settings.xml
+
+    The configuration of the SCM maven plugin can be tested using the
+    following command:
+
+    $> mvn scm:validate
+
+    Under Windows, one shall set up an ssh agent to avoid that the git
+    command hang waiting for a passphrase. The following commands are
+    necessary (run on the git-bash):
+
+    $> eval `ssh-agent`
+    $> env | grep SSH
+    $> ssh-add "/c/Users/franckc/.ssh/id_rsa"
+       enter passphrase : XXXXXXXX
+
+    The Maven release plugin can be run in a "dryRun" mode using the
+    option '-DdryRun=true-'. We recommend to get the 'dry run' before to
+    run the 'release:prepare' command.
+
+    $> mvn --batch-mode release:prepare -DreleaseVersion=0.1 -DdevelopmentVersion=0.2-SNAPSHOT
+
+    $> mvn release:perform
+
+    If anything goes wrong during the prepare or perform command, on can
+    revert the info committed in the repository using the following
+    commands:
+
+    $> git reset --hard <id of the commit you want to reset to>
+    $> git push origin master --force
