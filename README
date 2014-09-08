@@ -1,0 +1,37 @@
+Sensapp-Acceptance v0.1 
+(C) 2014 - SINTEF ICT
+
+
+CONTACT:
+--------
+
+  Franck CHAUVEL
+  franck.chauvel@sintef.no
+
+
+DESCRIPTION:
+------------
+
+SensApp acceptance wraps a serie of JUnit4 tests that verifies that a
+given deployment of SensApp is operational.
+
+These tests are end-to-end tests and will intereact with a SensApp
+instance through the network, and potentially through the browser. A
+complete run of the test suite may take several minutes.
+
+
+USAGE:
+------
+
+SensApp-Acceptance run a series of tests against a deployment of
+sensapp, described in a property file. 
+
+$> java -jar sensapp-acceptance.jar sensapp.properties
+
+
+In the above example, the given property file 'sensapp.properties'
+contains:
+
+ 
+DEVELOPMENT:
+------------
