@@ -17,6 +17,8 @@
 package net.modelbased.sensapp.acceptance.driver;
 
 
+import java.util.Locale;
+
 import static net.modelbased.sensapp.util.dbc.Contracts.require;
 import static org.hamcrest.Matchers.*;
 
@@ -55,6 +57,11 @@ public enum Service {
         }
         
         return result;
+    }
+    
+    @Override
+    public String toString() {
+        return name().toLowerCase(Locale.getDefault());
     }
 
     public static Service byIndex(int index) {

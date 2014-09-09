@@ -14,12 +14,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with SensApp Acceptance.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.modelbased.sensapp.acceptance.driver;
+package net.modelbased.sensapp.acceptance;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+import net.modelbased.sensapp.acceptance.driver.SensApp;
 
 /**
  * Create various sample data for testing SensApp
@@ -38,6 +39,7 @@ public class SampleFactory {
      * Delete all the instance that were created by the this factory
      */
     public void cleanUp() {
+        sensapp.getAdmin().open();
         for (String sensorId: usedSensorIds) {
             if (sensapp.getAdmin().isRegistered(sensorId)) {
                 sensapp.getAdmin().deleteSensor(sensorId);

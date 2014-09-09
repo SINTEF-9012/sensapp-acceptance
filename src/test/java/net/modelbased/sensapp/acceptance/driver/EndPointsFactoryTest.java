@@ -64,7 +64,7 @@ public class EndPointsFactoryTest {
         final StringBuilder buffer = new StringBuilder();
 
         for (int serviceIndex=0 ; serviceIndex<endPoints.length ; serviceIndex++) {
-            buffer.append(Service.byIndex(serviceIndex).name());
+            buffer.append(Service.byIndex(serviceIndex).toString());
             buffer.append(": ");
             buffer.append(endPoints[serviceIndex]);
             buffer.append(System.lineSeparator());

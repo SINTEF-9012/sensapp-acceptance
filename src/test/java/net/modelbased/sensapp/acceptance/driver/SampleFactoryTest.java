@@ -17,9 +17,9 @@
 
 package net.modelbased.sensapp.acceptance.driver;
 
+import net.modelbased.sensapp.acceptance.SampleFactory;
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnit4Mockery;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -40,9 +40,6 @@ public class SampleFactoryTest {
         admin = context.mock(SensAppAdmin.class);
     }
    
-    
-    
-    
     @Test
     public void shouldGenerateProperSensorIds() {
         final SampleFactory make = defaultSampleFactory();
@@ -66,6 +63,7 @@ public class SampleFactoryTest {
         final String id = factory.randomSensorId(); 
         
         context.checking(new Expectations(){{ 
+            oneOf(admin).open();
             oneOf(admin).isRegistered(id); will(returnValue(true));
             oneOf(admin).deleteSensor(id);
         }});

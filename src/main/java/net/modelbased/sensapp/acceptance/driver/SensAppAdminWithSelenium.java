@@ -16,6 +16,7 @@
  */
 package net.modelbased.sensapp.acceptance.driver;
 
+import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -31,9 +32,8 @@ public class SensAppAdminWithSelenium implements SensAppAdmin {
 
     public SensAppAdminWithSelenium(EndPoints endPoints, WebDriver driver) {
         this.driver = driver;
+        this.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         this.endPoints = endPoints;
-        //driver.get("http://192.168.11.16:8080/SensAppGUI");
-
     }
 
     @Override
@@ -56,18 +56,23 @@ public class SensAppAdminWithSelenium implements SensAppAdmin {
         driver.findElement(By.id("descr")).clear();
         driver.findElement(By.id("descr")).sendKeys(description);
 
-        driver.findElement(By.xpath("//a[@onclick=\"registerSensor('add-form','dataTable');\"]")).click();
+        driver.findElement(By.xpath("//a[contains(@onclick, 'registerSensor')]")).click();
     }
 
     @Override
     public boolean isRegistered(String sensorId) {
-        final String displayedSensorId = driver.findElement(By.id(sensorId)).getText();
-        return displayedSensorId.equals(sensorId);
+        return driver.findElements(By.id(sensorId)).size() == 1;
     }
-
+    
     @Override
     public void deleteSensor(String sensorId) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        final String deleteButton = DELETE_BUTTON_ID.replaceAll(SENSOR_ID_MARKER, sensorId);
+        driver.findElement(By.xpath(deleteButton)).click();
+        driver.findElement(By.id("delete")).click();
     }
-
+    
+    
+    private static final String SENSOR_ID_MARKER = "###-sensor-id-###";
+    private static final String DELETE_BUTTON_ID = "//a[contains(@onclick,'" + SENSOR_ID_MARKER + "') and contains(@onclick, 'delete-Sensor')]";
 }
+

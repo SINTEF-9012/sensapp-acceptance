@@ -17,28 +17,23 @@
 
 package net.modelbased.sensapp.acceptance;
 
-import net.modelbased.sensapp.acceptance.driver.MissingEndPointException;
+import org.junit.Test;
 
 /**
- * Entry point of the acceptance test. Run JUnit4 on the predefined test suite
+ * Specification of PropertyFileReference
  */
-public class Main {
+public class PropertyFileReferenceTest {
 
-    /**
-     * @param commandLine the command line arguments provided by the user
-     */
-    public static void main(String[] commandLine) {
-        try {
-            new SensAppAcceptance(commandLine).run();
-        
-        } catch (IllegalArgumentException ex) {
-            System.out.println(ex.getMessage());
-            System.out.println(SensAppAcceptance.getUsageMessage());
-            
-        } catch (MissingEndPointException ex) {
-            System.out.println("Error: Invalid endpoints configuration of SensApp");
-            System.out.println(ex.getMessage());
-        }
+    
+    @Test
+    public void shouldAcceptFilesWithTheProperExtension() {
+        new PropertyFileReference("C:\\Users\\franckc\\my_endpoints.properties");
     }
+    
+    
+     @Test(expected = IllegalArgumentException.class)
+     public void shouldRejectOtherExtensions() {
+         new PropertyFileReference("C:\\Users\\franckc\\my_endpoints.json");
+     }
 
 }
