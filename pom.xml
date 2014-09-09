@@ -14,7 +14,7 @@
     GNU Lesser General Public License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
-    along with SensApp Acceptance.  If not, see <http://www.gnu.org/licenses/>.
+    along with SensApp Acceptance.  If not, see <http://www.gnu.org/licenses />.
 
 -->
 <!--
@@ -39,7 +39,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.modelbased</groupId>
     <artifactId>sensapp-acceptance</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <name>SensApp Acceptance</name>
     <packaging>jar</packaging> 
         
