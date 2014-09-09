@@ -35,7 +35,8 @@ Sensapp-Acceptance v0.1
   In addition, a binary distribution, continuously updated, is
   available at:
 
-    http://dist.thingml.org/sensapp/sensapp-acceptance.jar
+    http://dist.thingml.org/sensapp/sensapp-acceptance-0.1-SNAPSHOT-jar-with-dependencies.jar
+
 
 
 3. HOW TO USE SENSAPP-ACCEPTANCE
