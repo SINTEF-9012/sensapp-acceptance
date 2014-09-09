@@ -58,8 +58,10 @@ Sensapp-Acceptance v0.1
     storage: http://demo.sensapp.org/storage
     dispatcher: http://demo.sensapp.org/dispatcher 
 
-  where you would have placed the URL of the endpoints of the SensApp
-  instance you want to test.
+  where you would have placed the URLs of the endpoints of the SensApp
+  instance you want to test. A complete example is available at:
+
+    https://github.com/SINTEF-9012/sensapp-acceptance/blob/master/src/test/resources/endPoints-minicloud.properties
 
 
 4. HOW TO DEVELOP SENSAPP-ACCEPTANCE
