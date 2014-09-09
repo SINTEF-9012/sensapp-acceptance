@@ -35,7 +35,7 @@ Sensapp-Acceptance v0.1
   In addition, a binary distribution, continuously updated, is
   available at:
 
-    http://dist.thingml.org/sensapp/sensapp-acceptance-0.1-SNAPSHOT-jar-with-dependencies.jar
+    http://dist.thingml.org/sensapp/sensapp-acceptance-0.2-SNAPSHOT-jar-with-dependencies.jar
 
 
 
@@ -118,3 +118,13 @@ Sensapp-Acceptance v0.1
 
     $> git reset --hard <id of the commit you want to reset to>
     $> git push origin master --force
+
+  Tags that have been created by the release plugin will not de remove
+  by the previous command, and must remove manually, as shown
+  below. The first command retrieve all the existings tags, and the
+  next two remove and publish the removal resepectively.
+
+    $> git tag
+    my-app-0.1
+    $> git tag -d my-app-0.1
+    $> git push origin :refs/tags/my-app-0.1
