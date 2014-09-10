@@ -15,8 +15,9 @@
  * along with SensApp Acceptance.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.modelbased.sensapp.acceptance.driver;
+package net.modelbased.sensapp.acceptance.driver.configuration;
 
+import net.modelbased.sensapp.acceptance.driver.Service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;

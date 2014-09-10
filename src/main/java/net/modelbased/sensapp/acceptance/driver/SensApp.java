@@ -16,6 +16,9 @@
  */
 package net.modelbased.sensapp.acceptance.driver;
 
+
+import net.modelbased.sensapp.acceptance.driver.admin.SensAppAdmin;
+
 /**
  * Wrap all the service of SensApp in a single object
  */

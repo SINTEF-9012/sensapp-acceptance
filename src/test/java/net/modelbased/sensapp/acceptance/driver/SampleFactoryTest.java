@@ -17,6 +17,7 @@
 
 package net.modelbased.sensapp.acceptance.driver;
 
+import net.modelbased.sensapp.acceptance.driver.admin.SensAppAdmin;
 import net.modelbased.sensapp.acceptance.SampleFactory;
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnit4Mockery;

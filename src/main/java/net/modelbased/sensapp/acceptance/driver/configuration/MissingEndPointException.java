@@ -14,7 +14,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with SensApp Acceptance.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.modelbased.sensapp.acceptance.driver;
+package net.modelbased.sensapp.acceptance.driver.configuration;
+
+import net.modelbased.sensapp.acceptance.driver.Service;
 
 /**
  * Thrown when a EndPoint collection is missing for a given service

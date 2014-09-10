@@ -18,8 +18,8 @@
  */
 package net.modelbased.sensapp.acceptance;
 
-import net.modelbased.sensapp.acceptance.driver.EndPointsBroker;
-import net.modelbased.sensapp.acceptance.driver.MissingEndPointException;
+import net.modelbased.sensapp.acceptance.driver.configuration.EndPointsBroker;
+import net.modelbased.sensapp.acceptance.driver.configuration.MissingEndPointException;
 import org.junit.runner.JUnitCore;
 
 import static net.modelbased.sensapp.util.dbc.Contracts.*;

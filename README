@@ -9,6 +9,18 @@ Sensapp-Acceptance v0.1
   complete run of the test suite may take several minutes.
 
 
+CONTENTS
+--------
+ 
+ 1. Contact
+ 2. Where to download 'sensapp-acceptance'?
+ 3. How to use 'sensapp-acceptance'?
+ 4. How to develop 'sensapp-acceptance'?
+    4.1 How to build?
+    4.2 How to release?
+ 5. Todos
+
+
 1. CONTACT
 ----------
 
@@ -24,8 +36,8 @@ Sensapp-Acceptance v0.1
     franck.chauvel@sintef.no
 
 
-2. HOW TO DOWNLOAD
-------------------
+2. WHERE TO DOWNLOAD?
+---------------------
 
   Stable releases are available on the Github page of the project:
 
@@ -39,8 +51,8 @@ Sensapp-Acceptance v0.1
 
 
 
-3. HOW TO USE SENSAPP-ACCEPTANCE
---------------------------------
+3. HOW TO USE SENSAPP-ACCEPTANCE?
+---------------------------------
  
   NOTE: SensApp-acceptance requires Firefox be installed.
 
@@ -65,8 +77,8 @@ Sensapp-Acceptance v0.1
     https://github.com/SINTEF-9012/sensapp-acceptance/blob/master/src/test/resources/endPoints-minicloud.properties
 
 
-4. HOW TO DEVELOP SENSAPP-ACCEPTANCE
-----------------------------------
+4. HOW TO DEVELOP SENSAPP-ACCEPTANCE?
+-------------------------------------
 
   4.1 How to build?
 
@@ -128,3 +140,10 @@ Sensapp-Acceptance v0.1
     my-app-0.1
     $> git tag -d my-app-0.1
     $> git push origin :refs/tags/my-app-0.1
+
+
+5 TODOs
+-------
+ 
+ - Add pushing data as a sensor would do
+ - Refactor and remove the PropertyFileReference class

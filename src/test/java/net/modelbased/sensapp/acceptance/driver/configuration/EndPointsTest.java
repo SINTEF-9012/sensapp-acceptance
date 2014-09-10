@@ -16,8 +16,10 @@
  */
 
 
-package net.modelbased.sensapp.acceptance.driver;
+package net.modelbased.sensapp.acceptance.driver.configuration;
 
+import net.modelbased.sensapp.acceptance.driver.configuration.EndPoints;
+import net.modelbased.sensapp.acceptance.driver.Service;
 import java.util.EnumMap;
 import java.util.Map;
 import org.junit.Test;

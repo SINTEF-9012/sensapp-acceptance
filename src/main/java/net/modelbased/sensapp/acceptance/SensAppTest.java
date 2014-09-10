@@ -17,6 +17,10 @@
 
 package net.modelbased.sensapp.acceptance;
 
+import net.modelbased.sensapp.acceptance.driver.configuration.EndPoints;
+import net.modelbased.sensapp.acceptance.driver.configuration.EndPointsBroker;
+import net.modelbased.sensapp.acceptance.driver.configuration.MissingEndPointException;
+import net.modelbased.sensapp.acceptance.driver.admin.SensAppAdminWithSelenium;
 import java.io.IOException;
 import net.modelbased.sensapp.acceptance.driver.*;
 import org.junit.After;
@@ -50,6 +54,21 @@ public class SensAppTest {
         assertThat(sensorId + " is not registered!",
                    sensapp.getAdmin().isRegistered(sensorId));
     }
+    
+//    @Test
+//    public void sensorsShouldBeAblePushData() {
+//        final String sensorId = samples.randomSensorId();
+//        final SensorData sensorData = samples.randomSensorData(sensorId);
+//        
+//        sensapp.getAdmin().open();
+//        sensapp.getAdmin().registerSensor(sensorId, "yet another sensor for testing purpose");
+//        
+//        sensapp.getDispatcher().push(sensorData);
+//        
+//        final SensorData read = sensapp.getStorage().query(new BySensor(sensorId));
+//        assertThat("sensor data should equivalent!", 
+//                   sensorData, is(equalTo(read)));
+//    }
 
     @After
     public void tearDown() {

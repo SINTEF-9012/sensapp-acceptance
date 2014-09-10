@@ -17,7 +17,7 @@
 
 package net.modelbased.sensapp.acceptance;
 
-import net.modelbased.sensapp.acceptance.driver.MissingEndPointException;
+import net.modelbased.sensapp.acceptance.driver.configuration.MissingEndPointException;
 
 /**
  * Entry point of the acceptance test. Run JUnit4 on the predefined test suite
