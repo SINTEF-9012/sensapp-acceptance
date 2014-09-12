@@ -1,10 +1,10 @@
 Sensapp-Acceptance v0.1 
 (C) 2014 - SINTEF ICT
 
-  SensApp acceptance wraps a serie of JUnit4 tests that verifies that
+  SensApp acceptance wraps a series of JUnit4 tests that verifies that
   a given deployment of SensApp is operational.
 
-  These tests are end-to-end tests and will intereact with a SensApp
+  These tests are end-to-end tests and will interact with a SensApp
   instance through the network, and potentially through the browser. A
   complete run of the test suite may take several minutes.
 
@@ -18,7 +18,7 @@ CONTENTS
  4. How to develop 'sensapp-acceptance'?
     4.1 How to build?
     4.2 How to release?
- 5. Todos
+ 5. TODOs
 
 
 1. CONTACT
@@ -57,7 +57,7 @@ CONTENTS
   NOTE: SensApp-acceptance requires Firefox be installed.
 
   SensApp-Acceptance run a series of tests against a deployment of
-  sensapp, described in a property file.
+  SensApp, described in a property file.
 
     $> java -jar sensapp-acceptance.jar sensapp.properties
 
@@ -83,7 +83,7 @@ CONTENTS
   4.1 How to build?
 
   SensApp-Acceptance is an open source application whose source are
-  available online, and can be retrieved from github using:
+  available on-line, and can be retrieved from github using:
 
     $> git clone https://github.com/SINTEF-9012/sensapp-acceptance
 
@@ -131,9 +131,9 @@ CONTENTS
     $> git reset --hard <id of the commit you want to reset to>
     $> git push origin master --force
 
-  Tags that have been created by the release plugin will not de remove
-  by the previous command, and must remove manually, as shown
-  below. The first command retrieve all the existing tags, and the
+  Tags that have been created by the release plugin will not be removed
+  by the previous commands, and must remove manually, as shown
+  below. The first command retrieves all the existing tags, and the
   next two remove and publish the removal respectively.
 
     $> git tag
@@ -145,4 +145,4 @@ CONTENTS
 5 TODOs
 -------
  
- - Refactor and remove the PropertyFileReference class
+ - Refactor to remove the EndPointFile class

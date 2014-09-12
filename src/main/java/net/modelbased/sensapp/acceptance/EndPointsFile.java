@@ -19,8 +19,6 @@ package net.modelbased.sensapp.acceptance;
 
 import java.io.File;
 
-import static net.modelbased.sensapp.util.dbc.Contracts.*;
-import static org.hamcrest.Matchers.*;
 
 /**
  * A reference to a property file on disk.
@@ -36,7 +34,6 @@ public class EndPointsFile extends File {
      */
     public EndPointsFile(String path) {
         super(path);
-        require(path, is(not(nullValue())));
         
         if (!path.endsWith(PROPERTIES_FILE_EXTENSION)) {
             throw new IllegalArgumentException("Invalid path to a property file, expected '*.properties' but '" + path + "' was found.");
