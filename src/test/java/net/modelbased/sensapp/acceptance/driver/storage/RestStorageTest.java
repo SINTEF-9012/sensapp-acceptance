@@ -33,7 +33,7 @@ import static org.hamcrest.Matchers.*;
  * This test disabled as it is not independent of other tests (it require some
  * sensor data already exist in the database).
  */
-//@Ignore
+@Ignore
 public class RestStorageTest {
 
     @Test
