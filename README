@@ -134,7 +134,7 @@ CONTENTS
   Tags that have been created by the release plugin will not de remove
   by the previous command, and must remove manually, as shown
   below. The first command retrieve all the existings tags, and the
-  next two remove and publish the removal resepectively.
+  next two remove and publish the removal respectively.
 
     $> git tag
     my-app-0.1
@@ -145,6 +145,4 @@ CONTENTS
 5 TODOs
 -------
  
- - Add pushing data as a sensor would do
  - Refactor and remove the PropertyFileReference class
- - Use the URL class instead of String in the EndPoints configuration

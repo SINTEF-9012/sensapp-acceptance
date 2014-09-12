@@ -36,11 +36,11 @@ public class RestStorage implements Storage {
     private final URL url;
     private final JsonCodec codec;
 
-    public RestStorage(EndPoints endPoints) throws MalformedURLException {
+    public RestStorage(EndPoints endPoints) {
         require(endPoints, is(not(nullValue())));
 
         codec = new JsonCodec();
-        url = new URL(endPoints.of(Service.STORAGE));
+        url = endPoints.getUrlOf(Service.STORAGE);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class RestStorage implements Storage {
             return new URL(url.toString() + "/" + sensorId);
             
         } catch (MalformedURLException ex) {
-            throw new RuntimeException("Wrong storage URL", ex);
+            throw new RuntimeException("Wrong URL derived for the storage of sensor " + sensorId, ex);
         
         }
     }

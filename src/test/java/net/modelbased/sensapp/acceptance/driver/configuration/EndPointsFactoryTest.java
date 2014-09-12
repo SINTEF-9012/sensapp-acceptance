@@ -35,9 +35,9 @@ public class EndPointsFactoryTest {
     private static final String END_POINTS[] = {
         "http://demo.sensapp.org/admin",
         "http://demo.sensapp.org/registry",
-        "http://demo.sensapp.org/notifier",
         "http://demo.sensapp.org/dispatcher",
-        "http://demo.sensapp.org/dispatcher"
+        "http://demo.sensapp.org/storage",
+        "http://demo.sensapp.org/notfifer"
     };
 
     @Test
@@ -73,7 +73,7 @@ public class EndPointsFactoryTest {
             buffer.append(endPoints[serviceIndex]);
             buffer.append(System.lineSeparator());
         }
-
+        System.out.println(buffer.toString());
         return new ByteArrayInputStream(buffer.toString().getBytes());
     }
 
@@ -81,7 +81,7 @@ public class EndPointsFactoryTest {
         assertThat(endPoints, is(not(nullValue())));
         
         for (Service eachService: Service.values()) {
-            assertThat(endPoints.of(eachService),
+            assertThat(endPoints.getUrlOf(eachService).toString(),
                        is(equalTo(END_POINTS[eachService.getIndex()])));
         }
     }

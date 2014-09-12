@@ -39,7 +39,7 @@ public class SensAppAdminWithSelenium implements SensAppAdmin {
 
     @Override
     public void open() {
-        this.driver.get(endPoints.of(ADMIN));
+        this.driver.get(endPoints.getUrlOf(ADMIN).toString());
     }
 
     @Override

@@ -40,10 +40,10 @@ public class RestDispatcher implements Dispatcher {
 
     private final URL url;
 
-    public RestDispatcher(EndPoints endPoints) throws MalformedURLException {
+    public RestDispatcher(EndPoints endPoints) {
         require(endPoints, is(not(nullValue())));
 
-        this.url = new URL(endPoints.of(Service.DISPATCHER));
+        this.url = endPoints.getUrlOf(Service.DISPATCHER);
     }
 
     @Override

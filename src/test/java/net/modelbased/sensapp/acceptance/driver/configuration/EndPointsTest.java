@@ -18,16 +18,13 @@
 
 package net.modelbased.sensapp.acceptance.driver.configuration;
 
-import net.modelbased.sensapp.acceptance.driver.configuration.EndPoints;
+import java.net.MalformedURLException;
 import net.modelbased.sensapp.acceptance.driver.Service;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
 
 import static net.modelbased.sensapp.acceptance.driver.Service.*;
-
-import org.junit.Test;
-
 
 import org.junit.Test;
 
@@ -41,32 +38,32 @@ import static org.hamcrest.Matchers.*;
 public class EndPointsTest {
 
     @Test
-    public void endPointsShouldBeAccessible() {
+    public void endPointsShouldBeAccessible() throws MissingEndPointException, MalformedURLException {
         final String adminUrl = "http://org.sensapp.demo/admin";
         
-        Map<Service, String> endPoints = sampleEndPoints(); 
-        endPoints.put(ADMIN, adminUrl);
+        Map<String, String> endPoints = sampleEndPoints(); 
+        endPoints.put(ADMIN.toString(), adminUrl);
         final EndPoints endpoints = new EndPoints(endPoints);
         
-        assertThat(endpoints.of(ADMIN), is(equalTo(adminUrl)));
+        assertThat(endpoints.getUrlOf(ADMIN).toString(), is(equalTo(adminUrl)));
     }
 
-    private Map<Service, String> sampleEndPoints() {
-        final Map<Service, String> endPoints = new EnumMap<>(Service.class);
-        endPoints.put(Service.ADMIN, "http://foo.com/admin");
-        endPoints.put(Service.DISPATCHER, "http://foo.com/admin");
-        endPoints.put(Service.NOTIFIER, "http://foo.com/notifier");
-        endPoints.put(Service.REGISTRY, "http://foo.com/registry");
-        endPoints.put(Service.STORAGE, "http://foo.com/storage");
+    private Map<String, String> sampleEndPoints() {
+        final Map<String, String> endPoints = new HashMap<>();
+        endPoints.put(ADMIN.toString(), "http://foo.com/admin");
+        endPoints.put(DISPATCHER.toString(), "http://foo.com/admin");
+        endPoints.put(NOTIFIER.toString(), "http://foo.com/notifier");
+        endPoints.put(REGISTRY.toString(), "http://foo.com/registry");
+        endPoints.put(STORAGE.toString(), "http://foo.com/storage");
         return endPoints;
     }
     
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldRejectMissingEndPoints() {
-        final Map<Service, String> endPoints = new EnumMap<>(Service.class); 
-        endPoints.put(Service.ADMIN, "http://foo.com/admin");
+    @Test(expected = MissingEndPointException.class)
+    public void shouldRejectMissingEndPoints() throws MissingEndPointException, MalformedURLException {
+        final Map<String, String> endPoints = new HashMap<>();
+        endPoints.put(ADMIN.toString(), "http://foo.com/admin");
         
-        new EndPoints(endPoints);
+        EndPoints result = new EndPoints(endPoints);
     }
     
 
