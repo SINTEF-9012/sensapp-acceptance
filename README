@@ -147,3 +147,4 @@ CONTENTS
  
  - Add pushing data as a sensor would do
  - Refactor and remove the PropertyFileReference class
+ - Use the URL class instead of String in the EndPoints configuration

@@ -14,20 +14,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with SensApp Acceptance.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.modelbased.sensapp.acceptance.driver.dispatcher;
 
-import net.modelbased.sensapp.acceptance.driver.data.SensorData;
+
+package net.modelbased.sensapp.util.http;
 
 /**
- * The SensApp 'dispatcher' service
+ * The various HTTP methods
  */
-public interface Dispatcher {
-
-    /**
-     * Push the given data into the underlying database
-     *
-     * @param data the data to be pushed
-     */
-    void push(SensorData data);
-
+public enum HttpMethod {
+    GET, POST, PUT, OPTIONS, HEADER;
 }

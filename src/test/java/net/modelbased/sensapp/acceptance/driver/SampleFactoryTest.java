@@ -19,6 +19,8 @@ package net.modelbased.sensapp.acceptance.driver;
 
 import net.modelbased.sensapp.acceptance.driver.admin.SensAppAdmin;
 import net.modelbased.sensapp.acceptance.SampleFactory;
+import net.modelbased.sensapp.acceptance.driver.dispatcher.Dispatcher;
+import net.modelbased.sensapp.acceptance.driver.storage.Storage;
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Test;
@@ -35,10 +37,14 @@ public class SampleFactoryTest {
     
     private final JUnit4Mockery context;
     private final SensAppAdmin admin;
+    private final Dispatcher dispatcher;
+    private final Storage storage;
     
     public SampleFactoryTest() {
         context = new JUnit4Mockery();
         admin = context.mock(SensAppAdmin.class);
+        dispatcher = context.mock(Dispatcher.class);
+        storage = context.mock(Storage.class);
     }
    
     @Test
@@ -53,7 +59,7 @@ public class SampleFactoryTest {
     }
 
     private SampleFactory defaultSampleFactory() {
-        return new SampleFactory(new SensApp(admin));
+        return new SampleFactory(new SensApp(admin, dispatcher, storage)); 
     }
    
     

@@ -14,20 +14,34 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with SensApp Acceptance.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.modelbased.sensapp.acceptance.driver.dispatcher;
-
-import net.modelbased.sensapp.acceptance.driver.data.SensorData;
+package net.modelbased.sensapp.acceptance.driver.data;
 
 /**
- * The SensApp 'dispatcher' service
+ * Represent a single observation made by one sensor
  */
-public interface Dispatcher {
+public class Event {
 
-    /**
-     * Push the given data into the underlying database
-     *
-     * @param data the data to be pushed
-     */
-    void push(SensorData data);
+    private final double value;
+    private final long time;
+
+    public Event(double value, long time) {
+        this.value = value;
+        this.time = time;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public long getTime() {
+        return time;
+    }
+    
+    public String toSenMl() {
+        final StringBuilder buffer = new StringBuilder();
+        buffer.append("{\"v\":").append(value).append(",");
+        buffer.append("\"t\":").append(time).append("}");
+        return buffer.toString();
+    }    
 
 }

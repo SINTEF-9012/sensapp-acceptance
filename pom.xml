@@ -14,6 +14,24 @@
     GNU Lesser General Public License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
+    along with SensApp Acceptance.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<!--
+
+    This file is part of SensApp Acceptance.
+
+    SensApp Acceptance is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    SensApp Acceptance is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
     along with SensApp Acceptance.  If not, see <http://www.gnu.org/licenses />.
 
 -->
@@ -140,6 +158,13 @@
             <artifactId>jmock-junit4</artifactId>
             <version>2.6.0</version>
             <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.1.1</version>
+            <type>jar</type>
         </dependency>
         
     </dependencies>
