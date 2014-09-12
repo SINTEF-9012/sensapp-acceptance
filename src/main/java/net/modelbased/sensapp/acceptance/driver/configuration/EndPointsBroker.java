@@ -37,7 +37,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.modelbased.sensapp.acceptance.PropertyFileReference;
+import net.modelbased.sensapp.acceptance.EndPointsFile;
 
 import static net.modelbased.sensapp.util.dbc.Contracts.*;
 import static org.hamcrest.Matchers.*;

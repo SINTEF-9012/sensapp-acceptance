@@ -20,20 +20,20 @@ package net.modelbased.sensapp.acceptance;
 import org.junit.Test;
 
 /**
- * Specification of PropertyFileReference
+ * Specification of EndPointsFile
  */
 public class PropertyFileReferenceTest {
 
     
     @Test
     public void shouldAcceptFilesWithTheProperExtension() {
-        new PropertyFileReference("C:\\Users\\franckc\\my_endpoints.properties");
+        new EndPointsFile("C:\\Users\\franckc\\my_endpoints.properties");
     }
     
     
      @Test(expected = IllegalArgumentException.class)
      public void shouldRejectOtherExtensions() {
-         new PropertyFileReference("C:\\Users\\franckc\\my_endpoints.json");
+         new EndPointsFile("C:\\Users\\franckc\\my_endpoints.json");
      }
 
 }

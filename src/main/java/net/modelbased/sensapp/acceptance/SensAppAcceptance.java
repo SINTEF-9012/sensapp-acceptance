@@ -14,64 +14,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with SensApp Acceptance.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * This file is part of SensApp Acceptance.
- *
- * SensApp Acceptance is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * SensApp Acceptance is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with SensApp Acceptance. If not, see <http://www.gnu.org/licenses/>.
- */
-/**
- * This file is part of SensApp Acceptance.
- *
- * SensApp Acceptance is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * SensApp Acceptance is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with SensApp Acceptance. If not, see <http://www.gnu.org/licenses/>.
- */
-/**
- * This file is part of SensApp Acceptance.
- *
- * SensApp Acceptance is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * SensApp Acceptance is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with SensApp Acceptance. If not, see <http://www.gnu.org/licenses/>.
- */
-/*
- */
+
 package net.modelbased.sensapp.acceptance;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.modelbased.sensapp.acceptance.driver.configuration.EndPointsBroker;
 import net.modelbased.sensapp.acceptance.driver.configuration.MissingEndPointException;
 import org.junit.runner.JUnitCore;
@@ -84,7 +33,7 @@ import static org.hamcrest.Matchers.*;
  */
 public class SensAppAcceptance {
 
-    private final PropertyFileReference endPoints;
+    private final EndPointsFile endPoints;
 
     public SensAppAcceptance(String[] commandLine) {
         require(commandLine, is(not(nullValue())));
@@ -93,22 +42,22 @@ public class SensAppAcceptance {
             throw new IllegalArgumentException("Missing path to the sensapp configuration.");
         }
 
-        endPoints = new PropertyFileReference(commandLine[0]);
+        endPoints = new EndPointsFile(commandLine[0]);
     }
 
     public void run() throws MissingEndPointException, FileNotFoundException {
-        InputStream configFile = null;
+        InputStream source = null;
         try {
-            configFile = new FileInputStream(endPoints.getPath());
-            EndPointsBroker.getInstance().loadEndPointsFrom(configFile);
+            source = new FileInputStream(endPoints);
+            EndPointsBroker.getInstance().loadEndPointsFrom(source);
 
         } catch (IOException ex) {
             throw new RuntimeException("I/O error while reading the endpoints", ex);
 
         } finally {
-            if (configFile != null) {
+            if (source != null) {
                 try {
-                    configFile.close();
+                    source.close();
 
                 } catch (IOException ex) {
                     throw new RuntimeException("I/O error while closing the stream from the endpoints", ex);
