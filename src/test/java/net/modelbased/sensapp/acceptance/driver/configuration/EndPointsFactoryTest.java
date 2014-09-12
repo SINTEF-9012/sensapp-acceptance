@@ -73,7 +73,7 @@ public class EndPointsFactoryTest {
             buffer.append(endPoints[serviceIndex]);
             buffer.append(System.lineSeparator());
         }
-        System.out.println(buffer.toString());
+      
         return new ByteArrayInputStream(buffer.toString().getBytes());
     }
 
