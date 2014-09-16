@@ -312,7 +312,9 @@
                 </executions>
             </plugin>
             
-            <!-- generating maven site -->
+            <!-- generating maven site 
+            Disable because the github plugin fails, and fails in turn the 
+            release plugin
             <plugin>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.3</version>
@@ -332,6 +334,7 @@
                     </dependency>                    
                 </dependencies>
             </plugin>
+            -->
            
             <!-- Publishing maven site on GitHub pages
             <plugin>
