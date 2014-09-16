@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>EndPointsBroker.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SensApp Acceptance</a> &gt; <a href="index.source.html" class="el_package">net.modelbased.sensapp.acceptance.driver.configuration</a> &gt; <span class="el_source">EndPointsBroker.java</span></div><h1>EndPointsBroker.java</h1><pre class="source lang-java linenums">/**
+ * This file is part of SensApp Acceptance.
+ *
+ * SensApp Acceptance is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SensApp Acceptance is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with SensApp Acceptance.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+package net.modelbased.sensapp.acceptance.driver.configuration;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import static net.modelbased.sensapp.util.dbc.Contracts.*;
+import static org.hamcrest.Matchers.*;
+
+/**
+ * Provide a single access to the configuration (i.e., end points) of the
+ * SensApp system under test.
+ */
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">public class EndPointsBroker {</span>
+
+<span class="fc" id="L32">    private static final Object lock = new Object();</span>
+<span class="fc" id="L33">    private static EndPointsBroker instance = null;</span>
+
+    /**
+     * @return the single access point to the EndPointsBroker
+     */
+    public static EndPointsBroker getInstance() {
+<span class="fc" id="L39">        synchronized (lock) {</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">            if (instance == null) {</span>
+<span class="fc" id="L41">                instance = new EndPointsBroker();</span>
+            }
+<span class="pc" id="L43">        }</span>
+<span class="fc" id="L44">        return instance;</span>
+    }
+
+    private final EndPointsFactory factory;
+    private EndPoints endPoints;
+
+<span class="fc" id="L50">    private EndPointsBroker() {</span>
+<span class="fc" id="L51">        factory = new EndPointsFactory();</span>
+<span class="fc" id="L52">        endPoints = factory.defaultEndPoints();</span>
+<span class="fc" id="L53">    }</span>
+
+    public EndPoints getEndPoints() {
+<span class="fc" id="L56">        return this.endPoints;</span>
+    }
+
+    /**
+     * Load the given property file as the current end points
+     *
+     * @param source a stream from the properties to be read
+     * @throws MissingEndPointException if the property file is not complete
+     * @throws java.io.IOException if I/O occurs while reading the source
+     */
+    public void loadEndPointsFrom(InputStream source) throws MissingEndPointException, IOException {
+<span class="fc" id="L67">        require(source, is(not(nullValue())));</span>
+
+        try {
+<span class="fc" id="L70">            endPoints = factory.fromProperties(source);</span>
+
+<span class="nc" id="L72">        } catch (IOException | MissingEndPointException ex) {</span>
+<span class="nc" id="L73">            endPoints = factory.defaultEndPoints();</span>
+<span class="nc" id="L74">            throw ex;</span>
+<span class="fc" id="L75">        }</span>
+
+<span class="pc bpc" id="L77" title="2 of 4 branches missed.">        assert endPoints != null: &quot;Should have set the endpoints&quot;;</span>
+<span class="fc" id="L78">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

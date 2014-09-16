@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SensApp Acceptance</a> &gt; <a href="index.source.html" class="el_package">net.modelbased.sensapp.acceptance</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">/**
+ * This file is part of SensApp Acceptance.
+ *
+ * SensApp Acceptance is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SensApp Acceptance is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with SensApp Acceptance.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package net.modelbased.sensapp.acceptance;
+
+import java.io.FileNotFoundException;
+import net.modelbased.sensapp.acceptance.driver.configuration.MissingEndPointException;
+
+/**
+ * Entry point of the acceptance test. Run JUnit4 on the predefined test suite
+ */
+<span class="nc" id="L25">public class Main {</span>
+
+    /**
+     * @param commandLine the command line arguments provided by the user
+     */
+    public static void main(String[] commandLine) {
+        try {
+<span class="nc" id="L32">            new SensAppAcceptance(commandLine).run();</span>
+
+<span class="nc" id="L34">        } catch (IllegalArgumentException ex) {</span>
+<span class="nc" id="L35">            System.out.println(ex.getMessage());</span>
+<span class="nc" id="L36">            System.out.println(SensAppAcceptance.getUsageMessage());</span>
+
+<span class="nc" id="L38">        } catch (MissingEndPointException ex) {</span>
+<span class="nc" id="L39">            System.out.println(&quot;Error: Invalid endpoints configuration of SensApp&quot;);</span>
+<span class="nc" id="L40">            System.out.println(ex.getMessage());</span>
+            
+<span class="nc" id="L42">        } catch (FileNotFoundException ex) {</span>
+<span class="nc" id="L43">            System.out.println(&quot;Error: unable to find the endpoints file&quot;);</span>
+<span class="nc" id="L44">            System.out.println(ex.getMessage());</span>
+<span class="nc" id="L45">        }</span>
+<span class="nc" id="L46">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

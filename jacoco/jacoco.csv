@@ -1,0 +1,25 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+SensApp Acceptance,net.modelbased.sensapp.acceptance,EndPointsFile,0,22,0,2,0,4,0,2,0,1
+SensApp Acceptance,net.modelbased.sensapp.acceptance,Main,36,0,0,0,13,0,2,0,2,0
+SensApp Acceptance,net.modelbased.sensapp.acceptance,SensAppAcceptance,81,0,6,0,19,0,6,0,3,0
+SensApp Acceptance,net.modelbased.sensapp.acceptance,SampleFactory,17,81,1,5,1,18,2,7,1,5
+SensApp Acceptance,net.modelbased.sensapp.acceptance,SampleFactory.AsciiCodeSlice,5,83,0,0,0,13,1,5,1,5
+SensApp Acceptance,net.modelbased.sensapp.acceptance,SensAppTest,118,0,0,0,23,0,4,0,4,0
+SensApp Acceptance,net.modelbased.sensapp.acceptance.driver.data,JsonCodec,43,223,3,7,6,41,4,7,1,5
+SensApp Acceptance,net.modelbased.sensapp.acceptance.driver.data,Event,0,40,0,0,0,10,0,4,0,4
+SensApp Acceptance,net.modelbased.sensapp.acceptance.driver.data,SensorData,9,123,1,3,2,22,2,7,1,6
+SensApp Acceptance,net.modelbased.sensapp.acceptance.driver.data,IanaUnit,22,94,1,3,2,14,3,6,2,5
+SensApp Acceptance,net.modelbased.sensapp.util.dbc,Contracts.new Object() {...},19,0,0,0,1,0,1,0,1,0
+SensApp Acceptance,net.modelbased.sensapp.util.dbc,Scope,9,29,0,0,0,3,2,2,2,2
+SensApp Acceptance,net.modelbased.sensapp.util.dbc,Contracts,71,36,7,4,9,11,8,5,2,5
+SensApp Acceptance,net.modelbased.sensapp.util.http,HttpMethod,68,0,0,0,2,0,4,0,4,0
+SensApp Acceptance,net.modelbased.sensapp.util.http,HttpRequest,144,0,12,0,35,0,11,0,5,0
+SensApp Acceptance,net.modelbased.sensapp.acceptance.driver.storage,RestStorage,65,0,0,0,11,0,3,0,3,0
+SensApp Acceptance,net.modelbased.sensapp.acceptance.driver.admin,SensAppAdminWithSelenium,109,0,2,0,21,0,7,0,6,0
+SensApp Acceptance,net.modelbased.sensapp.acceptance.driver.configuration,EndPointsFactory,14,99,0,6,4,16,0,7,0,4
+SensApp Acceptance,net.modelbased.sensapp.acceptance.driver.configuration,MissingEndPointException,3,17,0,0,1,3,1,1,1,1
+SensApp Acceptance,net.modelbased.sensapp.acceptance.driver.configuration,EndPointsBroker,20,61,3,5,3,18,3,6,0,5
+SensApp Acceptance,net.modelbased.sensapp.acceptance.driver.configuration,EndPoints,0,63,0,4,0,11,0,4,0,2
+SensApp Acceptance,net.modelbased.sensapp.acceptance.driver,Service,35,96,2,0,5,13,4,6,3,6
+SensApp Acceptance,net.modelbased.sensapp.acceptance.driver,SensApp,6,30,0,0,2,9,2,2,2,2
+SensApp Acceptance,net.modelbased.sensapp.acceptance.driver.dispatcher,RestDispatcher,34,0,0,0,9,0,2,0,2,0

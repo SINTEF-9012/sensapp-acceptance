@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SensAppAdminWithSelenium.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SensApp Acceptance</a> &gt; <a href="index.source.html" class="el_package">net.modelbased.sensapp.acceptance.driver.admin</a> &gt; <span class="el_source">SensAppAdminWithSelenium.java</span></div><h1>SensAppAdminWithSelenium.java</h1><pre class="source lang-java linenums">/**
+ * This file is part of SensApp Acceptance.
+ *
+ * SensApp Acceptance is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SensApp Acceptance is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with SensApp Acceptance.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package net.modelbased.sensapp.acceptance.driver.admin;
+
+import java.util.concurrent.TimeUnit;
+import net.modelbased.sensapp.acceptance.driver.configuration.EndPoints;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import static net.modelbased.sensapp.acceptance.driver.Service.ADMIN;
+
+/**
+ * Provide access to the SensAppAdmin service using the selenium browser driver.
+ */
+public class SensAppAdminWithSelenium implements SensAppAdmin {
+
+    private final EndPoints endPoints;
+    private final WebDriver driver;
+
+<span class="nc" id="L34">    public SensAppAdminWithSelenium(EndPoints endPoints, WebDriver driver) {</span>
+<span class="nc" id="L35">        this.driver = driver;</span>
+<span class="nc" id="L36">        this.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);</span>
+<span class="nc" id="L37">        this.endPoints = endPoints;</span>
+<span class="nc" id="L38">    }</span>
+
+    @Override
+    public void open() {
+<span class="nc" id="L42">        this.driver.get(endPoints.getUrlOf(ADMIN).toString());</span>
+<span class="nc" id="L43">    }</span>
+
+    @Override
+    public void exit() {
+<span class="nc" id="L47">        driver.quit();</span>
+<span class="nc" id="L48">    }</span>
+
+    @Override
+    public void registerSensor(String identifier, String description) {
+<span class="nc" id="L52">        driver.findElement(By.linkText(&quot;New Sensor&quot;)).click();</span>
+
+<span class="nc" id="L54">        driver.findElement(By.id(&quot;id&quot;)).clear();</span>
+<span class="nc" id="L55">        driver.findElement(By.id(&quot;id&quot;)).sendKeys(identifier);</span>
+
+<span class="nc" id="L57">        driver.findElement(By.id(&quot;descr&quot;)).clear();</span>
+<span class="nc" id="L58">        driver.findElement(By.id(&quot;descr&quot;)).sendKeys(description);</span>
+
+<span class="nc" id="L60">        driver.findElement(By.xpath(&quot;//a[contains(@onclick, 'registerSensor')]&quot;)).click();</span>
+<span class="nc" id="L61">    }</span>
+
+    @Override
+    public boolean isRegistered(String sensorId) {
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        return driver.findElements(By.id(sensorId)).size() == 1;</span>
+    }
+    
+    @Override
+    public void deleteSensor(String sensorId) {
+<span class="nc" id="L70">        final String deleteButton = DELETE_BUTTON_ID.replaceAll(SENSOR_ID_MARKER, sensorId);</span>
+<span class="nc" id="L71">        driver.findElement(By.xpath(deleteButton)).click();</span>
+<span class="nc" id="L72">        driver.findElement(By.id(&quot;delete&quot;)).click();</span>
+<span class="nc" id="L73">    }</span>
+    
+    
+    private static final String SENSOR_ID_MARKER = &quot;###-sensor-id-###&quot;;
+    private static final String DELETE_BUTTON_ID = &quot;//a[contains(@onclick,'&quot; + SENSOR_ID_MARKER + &quot;') and contains(@onclick, 'delete-Sensor')]&quot;;
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

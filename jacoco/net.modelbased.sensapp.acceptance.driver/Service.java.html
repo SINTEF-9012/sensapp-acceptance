@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Service.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SensApp Acceptance</a> &gt; <a href="index.source.html" class="el_package">net.modelbased.sensapp.acceptance.driver</a> &gt; <span class="el_source">Service.java</span></div><h1>Service.java</h1><pre class="source lang-java linenums">/**
+ * This file is part of SensApp Acceptance.
+ *
+ * SensApp Acceptance is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SensApp Acceptance is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with SensApp Acceptance.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+/**
+ * This file is part of SensApp Acceptance.
+ *
+ * SensApp Acceptance is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ *
+ * SensApp Acceptance is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with SensApp Acceptance. If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package net.modelbased.sensapp.acceptance.driver;
+
+import java.util.Locale;
+
+import static net.modelbased.sensapp.util.dbc.Contracts.require;
+import static org.hamcrest.Matchers.*;
+
+/**
+ * The set of services available in SensApp
+ *
+ * Each service is associated with an index to their use as array indices.
+ */
+<span class="pc" id="L45">public enum Service {</span>
+
+<span class="fc" id="L47">    ADMIN(0),</span>
+<span class="fc" id="L48">    REGISTRY(1),</span>
+<span class="fc" id="L49">    DISPATCHER(2),</span>
+<span class="fc" id="L50">    STORAGE(3),</span>
+<span class="fc" id="L51">    NOTIFIER(4);</span>
+
+    private final int index;
+
+<span class="fc" id="L55">    private Service(int index) {</span>
+<span class="fc" id="L56">        this.index = index;</span>
+<span class="fc" id="L57">    }</span>
+
+    public int getIndex() {
+<span class="fc" id="L60">        return index;</span>
+    }
+
+    public static int count() {
+<span class="nc" id="L64">        return values().length;</span>
+    }
+
+    public static String[] names() {
+<span class="nc" id="L68">        final String[] result = new String[5];</span>
+
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        for (Service each: Service.values()) {</span>
+<span class="nc" id="L71">            result[each.getIndex()] = each.name();</span>
+        }
+
+<span class="nc" id="L74">        return result;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L79">        return name().toLowerCase(Locale.getDefault());</span>
+    }
+
+    public static Service byIndex(int index) {
+<span class="fc" id="L83">        require(index, is(both(greaterThan(-1)).and(lessThan(values().length))));</span>
+
+<span class="fc" id="L85">        return values()[index];</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

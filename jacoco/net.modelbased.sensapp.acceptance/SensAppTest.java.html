@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SensAppTest.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SensApp Acceptance</a> &gt; <a href="index.source.html" class="el_package">net.modelbased.sensapp.acceptance</a> &gt; <span class="el_source">SensAppTest.java</span></div><h1>SensAppTest.java</h1><pre class="source lang-java linenums">/**
+ * This file is part of SensApp Acceptance.
+ *
+ * SensApp Acceptance is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SensApp Acceptance is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with SensApp Acceptance.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+package net.modelbased.sensapp.acceptance;
+
+import net.modelbased.sensapp.acceptance.driver.data.SensorData;
+import java.io.IOException;
+import net.modelbased.sensapp.acceptance.driver.*;
+import net.modelbased.sensapp.acceptance.driver.admin.SensAppAdminWithSelenium;
+import net.modelbased.sensapp.acceptance.driver.configuration.*;
+import net.modelbased.sensapp.acceptance.driver.dispatcher.RestDispatcher;
+import net.modelbased.sensapp.acceptance.driver.storage.RestStorage;
+
+import static org.hamcrest.Matchers.*;
+
+import org.junit.After;
+import org.junit.Test;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import static org.hamcrest.MatcherAssert.*;
+
+/**
+ * Specification of the SensApp application
+ */
+public class SensAppTest {
+
+    private final SampleFactory samples;
+    private final SensApp sensapp;
+
+<span class="nc" id="L44">    public SensAppTest() throws IOException, MissingEndPointException {</span>
+<span class="nc" id="L45">        final EndPoints endPoints = EndPointsBroker.getInstance().getEndPoints();</span>
+<span class="nc" id="L46">        sensapp = new SensApp(</span>
+                new SensAppAdminWithSelenium(endPoints, new FirefoxDriver()),
+                new RestDispatcher(endPoints),
+                new RestStorage(endPoints)
+        );
+<span class="nc" id="L51">        this.samples = new SampleFactory(sensapp);</span>
+<span class="nc" id="L52">    }</span>
+
+    @Test
+    public void usersShouldBeAbleToRegisterNewSensors() {
+<span class="nc" id="L56">        final String sensorId = samples.randomSensorId();</span>
+
+<span class="nc" id="L58">        sensapp.getAdmin().open();</span>
+<span class="nc" id="L59">        sensapp.getAdmin().registerSensor(sensorId, &quot;a sample sensor, for testing purpose&quot;);</span>
+
+<span class="nc" id="L61">        assertThat(sensorId + &quot; is not registered!&quot;,</span>
+                   sensapp.getAdmin().isRegistered(sensorId));
+<span class="nc" id="L63">    }</span>
+
+    @Test
+    public void sensorsShouldBeAbleToPushData() throws InterruptedException {
+<span class="nc" id="L67">        final String sensorId = samples.randomSensorId();</span>
+<span class="nc" id="L68">        final SensorData sensorData = samples.dummySensorData(sensorId);</span>
+
+<span class="nc" id="L70">        sensapp.getAdmin().open();</span>
+<span class="nc" id="L71">        sensapp.getAdmin().registerSensor(sensorId, &quot;yet another sensor for testing purpose&quot;);</span>
+
+<span class="nc" id="L73">        Thread.sleep(ONE_SECOND);</span>
+
+<span class="nc" id="L75">        sensapp.getDispatcher().push(sensorData);</span>
+
+<span class="nc" id="L77">        final SensorData read = sensapp.getStorage().get(sensorId);</span>
+
+<span class="nc" id="L79">        assertThat(&quot;sensor ID should be correct!&quot;,</span>
+                   read.getSensorId(), is(equalTo(sensorId)));
+<span class="nc" id="L81">        assertThat(&quot;event count should be preserved!&quot;,</span>
+                   read.getEvents(), hasSize(sensorData.getEvents().size()));
+<span class="nc" id="L83">    }</span>
+
+    private static final long ONE_SECOND = 1000L;
+
+    @After
+    public void tearDown() {
+<span class="nc" id="L89">        samples.cleanUp();</span>
+<span class="nc" id="L90">        sensapp.getAdmin().exit();</span>
+<span class="nc" id="L91">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

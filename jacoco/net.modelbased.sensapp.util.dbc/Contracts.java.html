@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Contracts.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SensApp Acceptance</a> &gt; <a href="index.source.html" class="el_package">net.modelbased.sensapp.util.dbc</a> &gt; <span class="el_source">Contracts.java</span></div><h1>Contracts.java</h1><pre class="source lang-java linenums">/**
+ * This file is part of SensApp Acceptance.
+ *
+ * SensApp Acceptance is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SensApp Acceptance is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with SensApp Acceptance.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+package net.modelbased.sensapp.util.dbc;
+
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.StringDescription;
+
+/**
+ * Helper methods to check pre and post conditions a la 'Eiffel'.
+ */
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">public class Contracts {</span>
+
+
+    public static &lt;E&gt; void require(E e, Matcher&lt;E&gt; matcher) {
+<span class="fc" id="L31">        require(Scope.ARGUMENT, e, matcher);</span>
+<span class="fc" id="L32">    }</span>
+
+    public static &lt;E&gt; void require(Scope scope, E e, Matcher&lt;E&gt; matcher) {
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if (!matcher.matches(e)) {</span>
+<span class="nc" id="L36">            final Description description = new StringDescription();</span>
+<span class="nc" id="L37">            matcher.describeMismatch(e, description);</span>
+<span class="nc" id="L38">            final String message = &quot;Precondition violated! &quot; + description.toString();</span>
+<span class="nc bnc" id="L39" title="All 3 branches missed.">            switch (scope) {</span>
+                case ARGUMENT:
+<span class="nc" id="L41">                    throw new IllegalArgumentException(message);</span>
+                case STATE:
+<span class="nc" id="L43">                    throw new IllegalStateException(message);</span>
+                default:
+<span class="nc" id="L45">                    throw new RuntimeException(&quot;Unexpected scope value: '&quot; + scope.name() + &quot;'&quot;);</span>
+            }
+        }
+<span class="fc" id="L48">    }</span>
+    
+    public static &lt;E&gt; void check(E e, Matcher&lt;E&gt; matcher) {
+<span class="nc" id="L51">        assertWithMessage(matcher, e, &quot;Assertion failed:&quot;);</span>
+<span class="nc" id="L52">    }</span>
+
+    private static &lt;E&gt; void assertWithMessage(Matcher&lt;E&gt; matcher, E e, final String message) {
+<span class="fc" id="L55">        final Description description = new StringDescription();</span>
+<span class="fc" id="L56">        matcher.describeMismatch(e, description);</span>
+<span class="pc bpc" id="L57" title="2 of 4 branches missed.">        assert matcher.matches(e): message + description.toString();</span>
+<span class="fc" id="L58">    }</span>
+    
+    public static &lt;E&gt; void ensure(E e, Matcher&lt;E&gt; matcher) {
+<span class="fc" id="L61">        assertWithMessage(matcher, e, &quot;Postcondition violated: &quot;);</span>
+<span class="fc" id="L62">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>
