@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SampleFactory.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SensApp Acceptance</a> &gt; <a href="index.source.html" class="el_package">net.modelbased.sensapp.acceptance</a> &gt; <span class="el_source">SampleFactory.java</span></div><h1>SampleFactory.java</h1><pre class="source lang-java linenums">/**
+ * This file is part of SensApp Acceptance.
+ *
+ * SensApp Acceptance is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SensApp Acceptance is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with SensApp Acceptance.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+package net.modelbased.sensapp.acceptance;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+import net.modelbased.sensapp.acceptance.driver.SensApp;
+import net.modelbased.sensapp.acceptance.driver.data.Event;
+import net.modelbased.sensapp.acceptance.driver.data.IanaUnit;
+import net.modelbased.sensapp.acceptance.driver.data.SensorData;
+
+/**
+ * Create various sample data for testing SensApp
+ */
+public class SampleFactory {
+
+    private final SensApp sensapp;
+    private final Set&lt;String&gt; usedSensorIds;
+
+<span class="fc" id="L37">    public SampleFactory(SensApp sensapp) {</span>
+<span class="fc" id="L38">        this.sensapp = sensapp;</span>
+<span class="fc" id="L39">        this.usedSensorIds = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L40">    } </span>
+
+    /**
+     * Delete all the instance that were created by the this factory
+     */
+    public void cleanUp() {
+<span class="fc" id="L46">        sensapp.getAdmin().open();</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        for (String sensorId: usedSensorIds) {</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">            if (sensapp.getAdmin().isRegistered(sensorId)) {</span>
+<span class="fc" id="L49">                sensapp.getAdmin().deleteSensor(sensorId);</span>
+            }
+<span class="fc" id="L51">        }</span>
+<span class="fc" id="L52">    }</span>
+
+    /**
+     * @return the list of sensor name that have been created
+     */
+    public Set&lt;String&gt; usedSensorIds() {
+<span class="fc" id="L58">        return Collections.unmodifiableSet(usedSensorIds);</span>
+    }
+
+    /**
+     * Generate a random sensor ID of the form: 'sensor-xxx' where xxx is a
+     * randomly generated key.
+     *
+     * Each generated sensor ID is memorised so as to be able to restore the
+     * initial state of the services.
+     *
+     * @return the generated sensor ID as a key
+     */
+    public String randomSensorId() {
+<span class="fc" id="L71">        final String sensorId = SENSOR_PREFIX + randomWord(KEY_LENGTH);</span>
+<span class="fc" id="L72">        usedSensorIds.add(sensorId);</span>
+
+<span class="fc" id="L74">        return sensorId;</span>
+    }
+
+    private static final String SENSOR_PREFIX = &quot;sensor-&quot;;
+    private static final int KEY_LENGTH = 10;
+
+    /**
+     * Generate a random key of the given length. Each character in the key is
+     * in [a-zA-Z0-9]
+     *
+     * @param length the number of character in the key.
+     * @return a randomly generated word of the specified length
+     */
+    private String randomWord(final int length) {
+<span class="fc" id="L88">        final char[] characters = new char[length];</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        for (int index = 0; index &lt; length; index++) {</span>
+<span class="fc" id="L90">            characters[index] = AsciiCodeSlice.getRandomSlice().getRandomSymbol();</span>
+        }
+<span class="fc" id="L92">        return new String(characters);</span>
+    }
+
+    public SensorData dummySensorData(String sensorId) {
+<span class="nc" id="L96">        return new SensorData(sensorId, 0L, IanaUnit.DEGREE_CELSIUS, new Event(123D, 1L));</span>
+    }
+
+    /**
+     * Represent a slice of the ASCII code, identified by a first symbol and the
+     * number of symbol to includes from there.
+     */
+<span class="pc" id="L103">    private static enum AsciiCodeSlice {</span>
+
+<span class="fc" id="L105">        DIGITS(48, 10),</span>
+<span class="fc" id="L106">        UPPER_CASE_LETTERS(65, 26),</span>
+<span class="fc" id="L107">        LOWER_CASE_LETTERS(97, 26);</span>
+
+        public static AsciiCodeSlice getRandomSlice() {
+<span class="fc" id="L110">            final int sliceCount = values().length;</span>
+<span class="fc" id="L111">            final Random generate = new Random();</span>
+<span class="fc" id="L112">            return AsciiCodeSlice.values()[generate.nextInt(sliceCount)];</span>
+        }
+
+        private final Random generate;
+        private final int firstSymbol;
+        private final int symbolCount;
+
+<span class="fc" id="L119">        private AsciiCodeSlice(int firstSymbol, int symbolCount) {</span>
+<span class="fc" id="L120">            this.generate = new Random();</span>
+<span class="fc" id="L121">            this.firstSymbol = firstSymbol;</span>
+<span class="fc" id="L122">            this.symbolCount = symbolCount;</span>
+<span class="fc" id="L123">        }</span>
+
+        public char getRandomSymbol() {
+<span class="fc" id="L126">            return (char) (firstSymbol + generate.nextInt(symbolCount));</span>
+        }
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

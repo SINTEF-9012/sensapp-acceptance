@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>IanaUnit.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SensApp Acceptance</a> &gt; <a href="index.source.html" class="el_package">net.modelbased.sensapp.acceptance.driver.data</a> &gt; <span class="el_source">IanaUnit.java</span></div><h1>IanaUnit.java</h1><pre class="source lang-java linenums">/**
+ * This file is part of SensApp Acceptance.
+ *
+ * SensApp Acceptance is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SensApp Acceptance is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with SensApp Acceptance.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package net.modelbased.sensapp.acceptance.driver.data;
+
+import static net.modelbased.sensapp.util.dbc.Contracts.require;
+import static org.hamcrest.Matchers.*;
+
+/**
+ * Enumeration of the standard measurement units such as meter, kilogramme, etc.
+ */
+<span class="pc" id="L25">public enum IanaUnit {</span>
+
+<span class="fc" id="L27">    METER(&quot;meter&quot;, &quot;m&quot;),</span>
+<span class="fc" id="L28">    DEGREE_CELSIUS(&quot;degree celcius&quot;, &quot;degC&quot;),</span>
+<span class="fc" id="L29">    UNKNOWN(&quot;unknown&quot;, &quot;??&quot;);</span>
+
+    public static IanaUnit fromSymbol(String symbol) {
+<span class="fc" id="L32">        require(symbol, is(not(nullValue())));</span>
+<span class="fc" id="L33">        require(symbol.length(), is(greaterThan(0)));</span>
+        
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        for(IanaUnit eachUnit: values()) {</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">            if (eachUnit.getSymbol().equals(symbol)) {</span>
+<span class="fc" id="L37">                return eachUnit;</span>
+            }
+        }
+        
+<span class="nc" id="L41">        throw new IllegalArgumentException(&quot;Unknown IANA unit symbol '&quot; + symbol + &quot;'&quot;);</span>
+    }
+
+    private final String name;
+    private final String symbol;
+
+<span class="fc" id="L47">    private IanaUnit(String name, String symbol) {</span>
+<span class="fc" id="L48">        this.name = name;</span>
+<span class="fc" id="L49">        this.symbol = symbol;</span>
+<span class="fc" id="L50">    }</span>
+
+    public String getName() {
+<span class="nc" id="L53">        return name;</span>
+    }
+
+    public String getSymbol() {
+<span class="fc" id="L57">        return symbol;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

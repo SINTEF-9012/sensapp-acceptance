@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>JsonCodec.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SensApp Acceptance</a> &gt; <a href="index.source.html" class="el_package">net.modelbased.sensapp.acceptance.driver.data</a> &gt; <span class="el_source">JsonCodec.java</span></div><h1>JsonCodec.java</h1><pre class="source lang-java linenums">/**
+ * This file is part of SensApp Acceptance.
+ *
+ * SensApp Acceptance is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SensApp Acceptance is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with SensApp Acceptance.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+/**
+ * This file is part of SensApp Acceptance.
+ *
+ * SensApp Acceptance is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ *
+ * SensApp Acceptance is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with SensApp Acceptance. If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+package net.modelbased.sensapp.acceptance.driver.data;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static net.modelbased.sensapp.util.dbc.Contracts.*;
+import static org.hamcrest.Matchers.*;
+
+/**
+ * Encode and decode sensor data into (from) JSON text
+ */
+public class JsonCodec implements Codec {
+
+    private final ObjectMapper mapper;
+
+<span class="fc" id="L51">    public JsonCodec() {</span>
+<span class="fc" id="L52">        mapper = new ObjectMapper();</span>
+<span class="fc" id="L53">    }</span>
+
+    @Override
+    public SensorData decodeSensorData(String text) {
+<span class="fc" id="L57">        require(text, is(not(nullValue())));</span>
+<span class="fc" id="L58">        require(text.length(), is(greaterThan(0)));</span>
+
+        try {
+<span class="fc" id="L61">            final JsonNode root = mapper.readTree(text);</span>
+<span class="fc" id="L62">            final String baseName = root.get(BASE_NAME).asText();</span>
+<span class="fc" id="L63">            final long baseTime = root.get(BASE_TIME).asLong();</span>
+
+<span class="fc" id="L65">            IanaUnit unit = IanaUnit.UNKNOWN;</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">            if (root.has(BASE_UNIT)) {</span>
+<span class="fc" id="L67">                unit = IanaUnit.fromSymbol(root.get(BASE_UNIT).asText());</span>
+            }
+
+<span class="fc" id="L70">            final List&lt;Event&gt; events = new ArrayList&lt;&gt;();</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">            if (root.has(EVENTS)) {</span>
+<span class="fc" id="L72">                final JsonNode eventsNode = root.get(EVENTS);</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">                for (JsonNode eachEventNode: eventsNode) {</span>
+<span class="fc" id="L74">                    events.add(decodeEvent(eachEventNode));</span>
+<span class="fc" id="L75">                }</span>
+            }
+
+<span class="fc" id="L78">            final SensorData result = new SensorData(baseName, baseTime, unit, events.toArray(new Event[events.size()]));</span>
+
+<span class="fc" id="L80">            return result;</span>
+
+<span class="nc" id="L82">        } catch (IOException ex) {</span>
+<span class="nc" id="L83">            throw new RuntimeException(&quot;Unexpected I/O error when reading the source (&quot; + ex.getMessage() + &quot;)&quot;);</span>
+        }
+    }
+    private static final String BASE_TIME = &quot;bt&quot;;
+    private static final String BASE_NAME = &quot;bn&quot;;
+    private static final String BASE_UNIT = &quot;bu&quot;;
+    private static final String EVENTS = &quot;e&quot;;
+
+    private Event decodeEvent(JsonNode node) {
+<span class="fc" id="L92">        require(node, is(not(nullValue())));</span>
+
+<span class="fc" id="L94">        final double value = node.get(VALUE).asDouble();</span>
+<span class="fc" id="L95">        final long time = node.get(TIME).asLong();</span>
+<span class="fc" id="L96">        final Event result = new Event(value, time);</span>
+
+<span class="fc" id="L98">        ensure(result, is(not(nullValue())));</span>
+<span class="fc" id="L99">        return result;</span>
+    }
+    private static final String TIME = &quot;t&quot;;
+    private static final String VALUE = &quot;v&quot;;
+
+    @Override
+    public Event decodeEvent(String text) {
+        try {
+<span class="nc" id="L107">            return decodeEvent(mapper.readTree(text));</span>
+
+<span class="nc" id="L109">        } catch (IOException ex) {</span>
+<span class="nc" id="L110">            throw new RuntimeException(&quot;Unexpected I/O error when reading the source (&quot; + ex.getMessage() + &quot;)&quot;);</span>
+        }
+    }
+
+    @Override
+    public String encodeSensorData(SensorData data) {
+<span class="fc" id="L116">        require(data, is(not(nullValue())));</span>
+
+<span class="fc" id="L118">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L119">        buffer.append(&quot;{&quot;);</span>
+<span class="fc" id="L120">        buffer.append(&quot;\&quot;&quot; + BASE_NAME + &quot;\&quot;:\&quot;&quot;).append(data.getSensorId()).append(&quot;\&quot;,&quot;);</span>
+<span class="fc" id="L121">        buffer.append(&quot;\&quot;&quot; + BASE_TIME + &quot;\&quot;:&quot;).append(data.getBaseTime()).append(&quot;,&quot;);</span>
+<span class="fc" id="L122">        buffer.append(&quot;\&quot;&quot; + BASE_UNIT + &quot;\&quot;:\&quot;&quot;).append(data.getUnit().getSymbol()).append(&quot;\&quot;,&quot;);</span>
+
+<span class="fc" id="L124">        buffer.append(&quot;\&quot;&quot; + EVENTS + &quot;\&quot;:[&quot;);</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        for (int eventIndex = 0; eventIndex &lt; data.getEvents().size(); eventIndex++) {</span>
+<span class="fc" id="L126">            buffer.append(encodeEvent(data.getEvents().get(eventIndex)));</span>
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">            if (eventIndex &lt; (data.getEvents().size() - 1)) {</span>
+<span class="nc" id="L128">                buffer.append(&quot;,&quot;);</span>
+            }
+        }
+<span class="fc" id="L131">        buffer.append(&quot;]}&quot;);</span>
+
+<span class="fc" id="L133">        return buffer.toString();</span>
+    }
+
+    @Override
+    public String encodeEvent(Event event) {
+<span class="fc" id="L138">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L139">        buffer.append(&quot;{\&quot;&quot; + VALUE + &quot;\&quot;:&quot;).append(event.getValue()).append(&quot;,&quot;);</span>
+<span class="fc" id="L140">        buffer.append(&quot;\&quot;&quot; + TIME + &quot;\&quot;:&quot;).append(event.getTime()).append(&quot;}&quot;);</span>
+<span class="fc" id="L141">        return buffer.toString();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

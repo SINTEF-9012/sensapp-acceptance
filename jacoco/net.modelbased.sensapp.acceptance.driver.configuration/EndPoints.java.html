@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>EndPoints.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SensApp Acceptance</a> &gt; <a href="index.source.html" class="el_package">net.modelbased.sensapp.acceptance.driver.configuration</a> &gt; <span class="el_source">EndPoints.java</span></div><h1>EndPoints.java</h1><pre class="source lang-java linenums">/**
+ * This file is part of SensApp Acceptance.
+ *
+ * SensApp Acceptance is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SensApp Acceptance is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with SensApp Acceptance.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+package net.modelbased.sensapp.acceptance.driver.configuration;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import net.modelbased.sensapp.acceptance.driver.Service;
+import java.util.EnumMap;
+import java.util.Map;
+
+import static net.modelbased.sensapp.util.dbc.Contracts.*;
+import static org.hamcrest.Matchers.*;
+
+/**
+ * Hold the URL associated with the endpoints of the SensApp services
+ */
+public class EndPoints {
+
+    private final Map&lt;Service, URL&gt; endPoints;
+
+    /**
+     * Create the EndPoints set from a mapping between service name and URL.
+     *
+     * @param urlByService a mapping from service name to URL
+     * @throws MissingEndPointException if some service are not provided with
+     * any URL
+     * @throws MalformedURLException if some URL are invalid
+     */
+<span class="fc" id="L44">    public EndPoints(Map&lt;String, String&gt; urlByService) throws MissingEndPointException, MalformedURLException {</span>
+<span class="fc" id="L45">        require(urlByService, is(not(nullValue())));</span>
+
+<span class="fc" id="L47">        this.endPoints = new EnumMap&lt;&gt;(Service.class);</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        for (Service eachService: Service.values()) {</span>
+<span class="fc" id="L49">            final String urlText = urlByService.get(eachService.toString());</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">            if (urlText == null) {</span>
+<span class="fc" id="L51">                throw new MissingEndPointException(eachService);</span>
+            }
+<span class="fc" id="L53">            this.endPoints.put(eachService, new URL(urlText));</span>
+        }
+
+<span class="fc" id="L56">    }</span>
+
+    /**
+     * @return the URL associated with the given service
+     * @param service the service whose URL is needed
+     *
+     */
+    public URL getUrlOf(Service service) {
+<span class="fc" id="L64">        require(service, is(not(nullValue())));</span>
+
+<span class="fc" id="L66">        return endPoints.get(service);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>
