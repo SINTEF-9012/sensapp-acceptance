@@ -14,7 +14,7 @@
     GNU Lesser General Public License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
-    along with SensApp Acceptance.  If not, see <http://www.gnu.org/licenses/>.
+    along with SensApp Acceptance.  If not, see <http://www.gnu.org/licenses />.
 
 -->
 <!--
@@ -40,7 +40,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.modelbased</groupId>
     <artifactId>sensapp-acceptance</artifactId>
-    <version>0.2</version>
+    <version>0.3-SNAPSHOT</version>
     <name>SensApp Acceptance</name>
     <description>Check that a given instance of SensApp is up and running</description>
     <url>http://sintef-9012.github.com/sensapp-acceptance</url>
