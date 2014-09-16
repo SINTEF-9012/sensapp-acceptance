@@ -27,27 +27,27 @@ public interface Codec {
      * @param text the text to parse
      * @return the equivalent SensorData object
      */
-    public SensorData decodeSensorData(String text);
+    SensorData decodeSensorData(String text);
     
     /**
      * Extract an event object from a given text
      * @param text the text to parse
      * @return an equivalent Event object
      */
-    public Event decodeEvent(String text);
+    Event decodeEvent(String text);
     
     /**
      * Encode the given SensorData object into JSON
      * @param data the sensor data to serialise
      * @return the equivalent JSON string
      */
-    public String encodeSensorData(SensorData data);
+    String encodeSensorData(SensorData data);
     
     /**
      * Encode the given Event object into JSON
      * @param event the event object to serialise
      * @return the equivalent JSON string
      */
-    public String encodeEvent(Event event);
+    String encodeEvent(Event event);
     
 }

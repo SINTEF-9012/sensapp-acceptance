@@ -14,22 +14,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with SensApp Acceptance.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * This file is part of SensApp Acceptance.
- *
- * SensApp Acceptance is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * SensApp Acceptance is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with SensApp Acceptance. If not, see <http://www.gnu.org/licenses/>.
- */
+
 package net.modelbased.sensapp.acceptance;
 
 import java.util.Collections;
@@ -37,7 +22,6 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 import net.modelbased.sensapp.acceptance.driver.SensApp;
-import net.modelbased.sensapp.acceptance.driver.configuration.EndPoints;
 import net.modelbased.sensapp.acceptance.driver.data.Event;
 import net.modelbased.sensapp.acceptance.driver.data.IanaUnit;
 import net.modelbased.sensapp.acceptance.driver.data.SensorData;
@@ -53,11 +37,7 @@ public class SampleFactory {
     public SampleFactory(SensApp sensapp) {
         this.sensapp = sensapp;
         this.usedSensorIds = new HashSet<>();
-    }
-
-    public SampleFactory(EndPoints endPoints) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    } 
 
     /**
      * Delete all the instance that were created by the this factory

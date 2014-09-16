@@ -24,7 +24,7 @@ public interface SensAppAdmin {
     /**
      * Open the web interface of the SensAppAdmin
      */
-    public void open();
+    void open();
 
     /**
      * Register a sensor with the given identifier and description
@@ -32,24 +32,24 @@ public interface SensAppAdmin {
      * @param id the unique identifier of the sensor
      * @param description a short description of the sensor
      */
-    public void registerSensor(String id, String description);
+    void registerSensor(String id, String description);
 
     /**
      * @return true if there exists a sensor with the given identifier
      * @param sensorId the sensor identifier
      */
-    public boolean isRegistered(String sensorId);
+    boolean isRegistered(String sensorId);
 
     /**
      * Delete the sensor with the specified ID
      *
      * @param sensorId the ID of the sensor to delete
      */
-    public void deleteSensor(String sensorId);
+    void deleteSensor(String sensorId);
 
     /**
      * Close the connection with the SensAppAdmin web interface
      */
-    public void exit();
+    void exit();
 
 }

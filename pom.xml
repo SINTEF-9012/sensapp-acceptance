@@ -17,36 +17,22 @@
     along with SensApp Acceptance.  If not, see <http://www.gnu.org/licenses/>.
 
 -->
-<!--
 
-    This file is part of SensApp Acceptance.
-
-    SensApp Acceptance is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    SensApp Acceptance is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public License
-    along with SensApp Acceptance.  If not, see <http://www.gnu.org/licenses />.
-
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.modelbased</groupId>
     <artifactId>sensapp-acceptance</artifactId>
     <version>0.2-SNAPSHOT</version>
     <name>SensApp Acceptance</name>
+    <description>Check that a given instance of SensApp is up and running</description>
+    <url>http://sintef-9012.github.com/sensapp-acceptance</url>
     <packaging>jar</packaging> 
         
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
+        <github.global.server>github</github.global.server>
     </properties>
     
     <licenses>
@@ -176,7 +162,6 @@
     </dependencies>
    
     
-    
     <build>
         
         <plugins>
@@ -207,6 +192,23 @@
                 </executions>
             </plugin>
             
+            <!-- Check for design issue -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.2</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                            <goal>cpd-check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- Check for bugs by static analysis -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
@@ -331,15 +333,24 @@
                 </dependencies>
             </plugin>
            
-           <!-- Publishing maven site on GitHub pages -->
+            <!-- Publishing maven site on GitHub pages
             <plugin>
                 <groupId>com.github.github</groupId>
                 <artifactId>site-maven-plugin</artifactId>
+                <version>0.9</version>
                 <configuration>
-                    <message>[Maven] Updating site for ${project.version}</message>
-                    <merge>true</merge>
+                    <message>Updating site for SensApp-Admin ${project.version}</message>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>site</phase>
+                    </execution>
+                </executions>
             </plugin>
+            -->
             
         </plugins>
         
@@ -360,6 +371,12 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.7.1.201405082137</version>
+            </plugin>
+         
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.2</version>
             </plugin>
          
             <plugin>

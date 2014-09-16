@@ -93,6 +93,4 @@ public class HttpRequest {
         }
 
     }
-    private static final String EMPTY_LINE = "";
-
 }

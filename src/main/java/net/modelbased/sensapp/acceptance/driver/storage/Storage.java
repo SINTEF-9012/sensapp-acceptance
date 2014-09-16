@@ -29,6 +29,6 @@ public interface Storage {
      * @param sensorId the id of the sensor of interest
      * @return the associated data
      */
-    public SensorData get(String sensorId);
+    SensorData get(String sensorId);
 
 }
