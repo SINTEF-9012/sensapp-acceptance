@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20140919" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>Maven - Team list</title>
+    <title>Maven - How to contribute</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -96,76 +96,18 @@
         Usage</a>
             </li>
                 
-      <li>
+      <li class="active">
   
-                          <a href="how_to_contribute.html" title="How to contribute?">
-          <i class="none"></i>
-        How to contribute?</a>
-            </li>
+            <a href="#"><i class="none"></i>How to contribute?</a>
+          </li>
                               <li class="nav-header">Project Documentation</li>
-                                                                                                                                                                                                                        
+                                                                                                                                                                                                              
       <li>
   
                           <a href="project-info.html" title="Project Information">
-          <i class="icon-chevron-down"></i>
+          <i class="icon-chevron-right"></i>
         Project Information</a>
-                    <ul class="nav nav-list">
-                    
-      <li>
-  
-                          <a href="index.html" title="About">
-          <i class="none"></i>
-        About</a>
-            </li>
-                    
-      <li>
-  
-                          <a href="dependency-info.html" title="Dependency Information">
-          <i class="none"></i>
-        Dependency Information</a>
-            </li>
-                    
-      <li>
-  
-                          <a href="distribution-management.html" title="Distribution Management">
-          <i class="none"></i>
-        Distribution Management</a>
-            </li>
-                    
-      <li class="active">
-  
-            <a href="#"><i class="none"></i>Project Team</a>
-          </li>
-                    
-      <li>
-  
-                          <a href="integration.html" title="Continuous Integration">
-          <i class="none"></i>
-        Continuous Integration</a>
-            </li>
-                    
-      <li>
-  
-                          <a href="issue-tracking.html" title="Issue Tracking">
-          <i class="none"></i>
-        Issue Tracking</a>
-            </li>
-                    
-      <li>
-  
-                          <a href="license.html" title="Project License">
-          <i class="none"></i>
-        Project License</a>
-            </li>
-                    
-      <li>
-  
-                          <a href="source-repository.html" title="Source Repository">
-          <i class="none"></i>
-        Source Repository</a>
-            </li>
-              </ul>
-        </li>
+                  </li>
                                                                                                       
       <li>
   
@@ -195,41 +137,66 @@
         <div id="bodyColumn"  class="span9" >
                                   
             <div class="section">
-<h2>The Team<a name="The_Team"></a></h2><a name="The_Team"></a>
-<p>A successful project requires many people to play many roles. Some members write code or documentation, while others are valuable as testers, submitting patches and suggestions.</p>
-<p>The team is comprised of Members and Contributors. Members have direct access to the source of a project and actively evolve the code-base. Contributors improve the project through submission of patches and suggestions to the Members. The number of Contributors to the project is unbounded. Get involved today. All contributions to the project are greatly appreciated.</p>
+<h2>How to contribute<a name="How_to_contribute"></a></h2>
 <div class="section">
-<h3>Members<a name="Members"></a></h3><a name="Members"></a>
-<p>The following is a list of developers with commit privileges that have directly contributed to the project in one way or another.</p>
-<table border="0" class="table table-striped">
-<tr class="a">
-<th>Image</th>
-<th>Name</th>
-<th>Email</th>
-<th>Organization</th></tr>
-<tr class="b">
-<td><img src="http://www.gravatar.com/avatar/0a5babbcf4455afc2a10b5ddb7f2d86a?d=mm&amp;s=60" alt="" /></td>
-<td>Franck Chauvel</td>
-<td><a class="externalLink" href="mailto:franck.chauvel@sintef.no">franck.chauvel@sintef.no</a></td>
-<td>SINTEF ICT</td></tr></table></div>
+<h3>Fetching the source code<a name="Fetching_the_source_code"></a></h3>
+<p>SensApp-Acceptance is an open source application whose source are  available on-line, and can be retrieved from github using:</p>
+
+<div class="source">
+<pre>$&gt; git clone https://github.com/SINTEF-9012/sensapp-acceptance
+</pre></div></div>
 <div class="section">
-<h3>Contributors<a name="Contributors"></a></h3><a name="Contributors"></a>
-<p>There are no contributors listed for this project. Please check back again later.</p><script type="text/javascript">
-function offsetDate(id, offset) {
-    var now = new Date();
-    var nowTime = now.getTime();
-    var localOffset = now.getTimezoneOffset();
-    var developerTime = nowTime + ( offset * 60 * 60 * 1000 )+ ( localOffset * 60 * 1000 );
-    var developerDate = new Date(developerTime);
+<h3>Building<a name="Building"></a></h3>
+<p>SensApp-Acceptance is a regular Maven application, which can be  built and packaged using the &#x2018;mvn&#x2019; command:</p>
 
-    document.getElementById(id).innerHTML = developerDate;
-}
+<div class="source">
+<pre>$&gt; mvn clean package
+</pre></div></div>
+<div class="section">
+<h3>Releasing<a name="Releasing"></a></h3>
+<p>WARNING: Please not that releasing a new version will eventually generate a new version  of the companion site, and upload it on Github pages. This requires the user  have public email, on its GitHub account (with the github-site-plugin in version 0.10).</p>
+<p>Before to create a release, one should ensure the following:</p>
 
-function init(){
-}
+<div class="source">
+<pre> - Read/write access to the git repository 
 
-window.onLoad = init();
-</script></div></div>
+ - Valid credentials to connect on the &quot;deployment&quot; server are
+   configured in .m2/settings.xml
+</pre></div>
+<p>The configuration of the SCM maven plugin can be tested using the  following command:</p>
+
+<div class="source">
+<pre>$&gt; mvn scm:validate
+</pre></div>
+<p>Under Windows, one shall set up an ssh agent to avoid that the git  command hang waiting for a passphrase. The following commands are  necessary (run on the git-bash):</p>
+
+<div class="source">
+<pre>$&gt; eval `ssh-agent`
+$&gt; env | grep SSH
+$&gt; ssh-add &quot;/c/Users/franckc/.ssh/id_rsa&quot;
+   enter passphrase : XXXXXXXX
+</pre></div>
+<p>The Maven release plugin can be run in a &#x201c;dryRun&#x201d; mode using the  option &#x2018;-DdryRun=true-&#x2019;. We recommend to get the &#x2018;dry run&#x2019; before to  run the &#x2018;release:prepare&#x2019; command.</p>
+
+<div class="source">
+<pre>$&gt; mvn --batch-mode release:prepare -DreleaseVersion=0.1 -DdevelopmentVersion=0.2-SNAPSHOT
+
+$&gt; mvn release:perform
+</pre></div>
+<p>If anything goes wrong during the prepare or perform command, on can  revert the info committed in the repository using the following  commands:</p>
+
+<div class="source">
+<pre>$&gt; git reset --hard &lt;id of the commit you want to reset to&gt;
+$&gt; git push origin master --force
+</pre></div>
+<p>Tags that have been created by the release plugin will not be removed  by the previous commands, and must remove manually, as shown  below. The first command retrieves all the existing tags, and the  next two remove and publish the removal respectively.</p>
+
+<div class="source">
+<pre>$&gt; git tag
+my-app-0.1
+$&gt; git tag -d my-app-0.1
+$&gt; git push origin :refs/tags/my-app-0.1
+</pre></div></div></div>
                   </div>
             </div>
           </div>
